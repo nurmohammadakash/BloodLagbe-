@@ -10,3 +10,5 @@ Thumbs.db
 .vscode/
 *.tmp
 main.backup.css
+database/blood_lagbe_tidb.sql
+database/*.sql.bak
