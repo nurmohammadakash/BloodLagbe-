@@ -1,0 +1,19 @@
+.dash-grid{display:grid;grid-template-columns:270px minmax(0,640px) 310px;gap:22px;justify-content:center;max-width:1300px;margin:24px auto 60px;padding:0 16px;align-items:start}
+.dash-left,.dash-right{position:sticky;top:84px;display:grid;gap:16px}
+.dash-profile{text-align:center;padding:0;overflow:hidden}
+.dash-cover{height:78px;background:linear-gradient(135deg,#5c0006,var(--red) 60%,var(--red2))}
+.dash-profile .sx-avatar{margin-top:-34px;border:4px solid var(--card)}
+.dash-profile-body{padding:0 18px 18px}
+.dash-profile h2{font-size:18px;margin-top:8px}.dash-profile p{color:var(--text2);font-size:13px}
+.dash-stats{display:flex;justify-content:center;gap:26px;margin:14px 0}
+.dash-stats strong{display:block;font-size:18px}.dash-stats span{font-size:12px;color:var(--text2)}
+.dash-person{display:flex;align-items:center;gap:11px;padding:8px 0}
+.dash-person-info{flex:1;min-width:0}.dash-person-info a{display:block;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dash-person-info small{color:var(--text2);font-size:12px}
+.dash-person-actions{display:flex;gap:6px}
+.dash-confirm{padding:10px 0;border-bottom:1px solid var(--border)}.dash-confirm:last-child{border:0}
+.dash-confirm p{font-size:13.5px;margin-bottom:8px}
+.dash-more{display:block;margin:6px auto 0}
+.dash-newposts{display:block;width:100%;margin-bottom:14px}
+@media(max-width:1100px){.dash-grid{grid-template-columns:minmax(0,640px) 300px}.dash-left{display:none}}
+@media(max-width:820px){.dash-grid{grid-template-columns:minmax(0,1fr)}.dash-right{position:static;order:-1}.dash-right .sx-card:not(:first-child){display:none}}

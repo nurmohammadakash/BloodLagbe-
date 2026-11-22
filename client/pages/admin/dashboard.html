@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blood-Lagbe | Admin Panel</title>
+<link rel="stylesheet" href="/css/admin.css">
+</head>
+<body class="admin-body">
+<div class="admin-shell">
+
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="/admin"><span>🩸</span><span>Blood<b>Lagbe</b></span><em>ADMIN</em></a>
+    <nav id="sidebarNav"></nav>
+    <div class="sidebar-foot"><a href="/" target="_blank" rel="noopener">↗ View website</a></div>
+  </aside>
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <div class="main-col">
+    <header class="topbar">
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
+      <div class="crumbs">Admin / <strong id="pageTitle">Overview</strong></div>
+
+      <div class="topbar-right">
+        <button class="icon-btn" data-theme-toggle>☀️ Light</button>
+        <div class="profile-menu">
+          <button class="profile-btn" id="profileBtn">
+            <span class="avatar" id="adminAvatar">A</span>
+            <span class="profile-text"><strong id="adminName">Admin</strong><small id="adminRole"></small></span>
+            <span>▾</span>
+          </button>
+          <div class="dropdown" id="profileDropdown">
+            <a href="#settings">⚙️ Settings</a>
+            <button class="danger" id="logoutBtn">⏻ Logout</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="content" id="view"></main>
+  </div>
+</div>
+
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script src="/js/theme.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="/js/admin-core.js"></script>
+<script src="/js/admin-ui.js"></script>
+<script src="/js/admin-shell.js"></script>
+<script src="/js/admin-overview.js"></script>
+<script src="/js/admin-bloodbanks.js"></script>
+<script src="/js/admin-users.js"></script>
+<script src="/js/admin-requests.js"></script>
+<script src="/js/admin-donations.js"></script>
+<script src="/js/admin-moderation.js"></script>
+<script src="/js/admin-reviews.js"></script>
+<script src="/js/admin-announcements.js"></script>
+<script src="/js/admin-audit.js"></script>
+<script src="/js/admin-settings.js"></script>
+<script src="/js/admin-admins.js"></script>
+<script src="/js/admin-reports.js"></script>
+<script src="/js/admin-connections.js"></script>
+<script src="/js/admin-bankforecast.js"></script>
+</body>
+</html>

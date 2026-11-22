@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Blood-Lagbe secure login page.">
+    <title>Blood-Lagbe | Login</title>
+    <link rel="stylesheet" href="../../css/auth.css">
+</head>
+<body class="auth-page login-page">
+    <div class="auth-background" aria-hidden="true">
+        <div class="auth-grid"></div>
+        <div class="auth-glow auth-glow-one"></div>
+        <div class="auth-glow auth-glow-two"></div>
+        <div class="floating-particle particle-one"></div>
+        <div class="floating-particle particle-two"></div>
+        <div class="floating-particle particle-three"></div>
+        <div class="floating-particle particle-four"></div>
+    </div>
+
+    <header class="auth-navbar">
+        <a href="/" class="auth-brand" aria-label="Blood-Lagbe home">
+            <span class="brand-drop">🩸</span>
+            <span class="brand-name">Blood<span>Lagbe</span></span>
+        </a>
+        <div class="login-header-actions"><a href="/" class="back-home">← Back to Home</a><button class="auth-theme-toggle" data-theme-toggle type="button">☀️ Light</button></div>
+    </header>
+
+    <main class="auth-main">
+        <section class="auth-visual" aria-hidden="true">
+            <div class="visual-orbit orbit-a"></div>
+            <div class="visual-orbit orbit-b"></div>
+            <div class="visual-orbit orbit-c"></div>
+            <div class="visual-core-glow"></div>
+            <div class="visual-drop-wrap">
+                <img src="../../assets/images/blood_img.png" alt="" class="visual-drop">
+            </div>
+            <div class="heartbeat-line">
+                <span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <div class="visual-copy">
+                <span class="eyebrow"><i></i> EVERY SECOND COUNTS</span>
+                <h1>FIND BLOOD.<br><strong>SAVE LIVES.</strong></h1>
+                <p>One secure login connects you to the Blood-Lagbe community when every second matters.</p>
+            </div>
+        </section>
+
+        <section class="auth-panel-wrap">
+            <div class="auth-panel">
+                <div class="panel-topline"></div>
+                <div class="auth-heading">
+                    <span class="heading-kicker">WELCOME BACK</span>
+                    <h2>Sign in to <span>BloodLagbe</span></h2>
+                    <p>Access your account and continue making a difference.</p>
+                </div>
+
+                <form id="loginForm" class="auth-form" novalidate>
+                    <div class="form-group">
+                        <label for="login">Email or Username</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">👤</span>
+                            <input type="text" id="login" name="login" placeholder="Enter your email or username" autocomplete="username" required>
+                        </div>
+                        <small class="field-error" id="loginError"></small>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="password-label-row">
+                            <label for="password">Password</label>
+                            <a href="/forgot-password" class="forgot-link">Forgot Password?</a>
+                        </div>
+                        <div class="input-wrapper">
+                            <span class="input-icon">🔒</span>
+                            <input type="password" id="password" name="password" placeholder="Enter your password" autocomplete="current-password" required>
+                            <button type="button" class="password-toggle" data-target="password">Show</button>
+                        </div>
+                        <small class="field-error" id="passwordError"></small>
+                    </div>
+
+                    <div id="loginMessage" class="auth-message" role="alert"></div>
+
+                    <button type="submit" id="loginButton" class="btn btn-primary auth-submit">
+                        <span id="buttonText">Login <b>→</b></span>
+                        <span id="buttonLoader" hidden>Signing In...</span>
+                    </button>
+                </form>
+
+                <div class="auth-footer">
+                    <span>Don't have an account?</span>
+                    <a href="/register">Create Account</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="auth-footer-note">© Blood-Lagbe · FIND BLOOD. SAVE LIVES.</footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+    <script src="../../js/theme.js"></script>
+    <script src="../../js/gsap-init.js"></script>
+    <script src="../../js/login.js"></script>
+</body>
+</html>

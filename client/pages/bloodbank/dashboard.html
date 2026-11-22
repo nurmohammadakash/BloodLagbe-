@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blood-Lagbe | Blood Bank Panel</title>
+<link rel="stylesheet" href="/css/bank.css">
+</head>
+<body class="bank-body">
+<div class="bank-shell">
+
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="/bloodbank/dashboard"><span>🩸</span><span>Blood<b>Lagbe</b></span><em>BLOOD BANK</em></a>
+    <nav id="sidebarNav"></nav>
+    <div class="sidebar-foot"><a href="/" target="_blank" rel="noopener">↗ View website</a></div>
+  </aside>
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <div class="main-col">
+    <header class="topbar">
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
+      <div class="crumbs">Blood Bank / <strong id="pageTitle">Dashboard</strong></div>
+
+      <div class="topbar-right">
+        <button class="icon-btn" data-theme-toggle>☀️ Light</button>
+        <div class="profile-menu">
+          <button class="profile-btn" id="profileBtn">
+            <span class="avatar" id="bankAvatar">B</span>
+            <span class="profile-text"><strong id="bankName">Blood Bank</strong><small id="bankStatus"></small></span>
+            <span>▾</span>
+          </button>
+          <div class="dropdown" id="profileDropdown">
+            <a href="#settings">⚙️ Profile &amp; Settings</a>
+            <button class="danger" id="logoutBtn">⏻ Logout</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="content" id="view"></main>
+  </div>
+</div>
+
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script src="/js/theme.js"></script>
+<script src="/js/bank-core.js"></script>
+<script src="/js/bank-ui.js"></script>
+<script src="/js/bank-shell.js"></script>
+<script src="/js/bank-overview.js"></script>
+<script src="/js/bank-settings.js"></script>
+<script src="/js/bank-inventory.js"></script>
+<script src="/js/bank-requests.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="/js/datepicker-init.js"></script>
+</body>
+</html>

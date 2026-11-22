@@ -1,0 +1,25 @@
+// Design tokens. Change a colour here and the whole site follows after a rebuild.
+$bg-main: #0a0a0c;
+$bg-secondary: #101014;
+$bg-card: #151519;
+$bg-card-hover: #1b1b21;
+
+$red: #e50914;
+$red-bright: #ff1e2d;
+$red-dark: #9d0009;
+
+$white: #ffffff;
+$text-primary: #f5f5f5;
+$text-secondary: #a7a7ad;
+$text-muted: #707078;
+
+$radius-small: 8px;
+$radius-medium: 16px;
+$radius-large: 24px;
+
+$transition: 0.3s ease;
+
+// Breakpoints used by the max-width mixin
+$bp-tablet: 1000px;
+$bp-mobile: 700px;
+$bp-small: 400px;

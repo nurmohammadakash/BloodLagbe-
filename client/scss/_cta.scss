@@ -1,0 +1,100 @@
+/* =========================================================
+   11. CTA
+   ========================================================= */
+
+.cta-section {
+    position: relative;
+
+    overflow: hidden;
+
+    padding: 120px 20px;
+
+    text-align: center;
+
+    border-top:
+        1px solid var(--border);
+
+    border-bottom:
+        1px solid var(--border);
+
+    background:
+
+        radial-gradient(
+            circle at center,
+            rgba(229,9,20,0.12),
+            transparent 45%
+        ),
+
+        var(--bg-secondary);
+}
+
+.cta-glow {
+    position: absolute;
+
+    width: 350px;
+    height: 350px;
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    background:
+        rgba(229,9,20,0.08);
+
+    filter: blur(90px);
+}
+
+.cta-content {
+    position: relative;
+
+    z-index: 2;
+}
+
+.cta-icon {
+    font-size: 48px;
+
+    margin-bottom: 15px;
+
+    animation:
+        ctaFloat 3s ease-in-out infinite;
+}
+
+@keyframes ctaFloat {
+
+    0%,
+    100% {
+        transform:
+            translateY(0);
+    }
+
+    50% {
+        transform:
+            translateY(-10px);
+    }
+}
+
+.cta-content h2 {
+    margin-top: 5px;
+
+    font-size:
+        clamp(35px, 5vw, 60px);
+
+    line-height: 1.05;
+
+    letter-spacing: -2px;
+}
+
+.cta-content p {
+    max-width: 550px;
+
+    margin: 20px auto 30px;
+
+    color: var(--text-secondary);
+
+    font-size: 14px;
+}
+

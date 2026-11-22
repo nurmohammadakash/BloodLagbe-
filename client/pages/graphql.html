@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Blood-Lagbe | GraphQL Demo</title>
+<style>
+    :root{--bg:#0f1115;--card:#171a21;--border:#2a2f3a;--text:#e8eaf0;--muted:#9aa3b2;--red:#e11d48;--green:#22c55e}
+    @media (prefers-color-scheme: light){:root{--bg:#f5f6f8;--card:#fff;--border:#dfe3ea;--text:#1b1f27;--muted:#5b6475}}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 system-ui,Segoe UI,Roboto,sans-serif}
+    main{max-width:1000px;margin:0 auto;padding:24px 16px 60px}
+    h1{margin:0 0 4px;font-size:24px}
+    p.sub{color:var(--muted);margin:0 0 18px}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    @media(max-width:760px){.grid{grid-template-columns:1fr}}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px}
+    .card h2{margin:0 0 8px;font-size:12px;letter-spacing:.7px;text-transform:uppercase;color:var(--muted)}
+    textarea,pre{width:100%;min-height:340px;margin:0;border:1px solid var(--border);border-radius:10px;background:var(--bg);color:var(--text);font:13px/1.5 ui-monospace,Consolas,monospace;padding:12px;overflow:auto}
+    textarea{resize:vertical}
+    pre{white-space:pre-wrap;word-break:break-word}
+    .row{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+    button{border:1px solid var(--border);background:var(--card);color:var(--text);padding:8px 14px;border-radius:10px;font:inherit;cursor:pointer}
+    button.primary{background:var(--red);border-color:var(--red);color:#fff;font-weight:700}
+    .meta{font-size:12px;color:var(--muted);margin-top:8px}
+    .ok{color:var(--green)}.bad{color:var(--red)}
+    a{color:var(--red)}
+</style>
+</head>
+<body>
+<main>
+    <h1>GraphQL demo</h1>
+    <p class="sub">One endpoint, <code>POST /graphql</code>. You choose exactly which fields come back. <a href="/">Back to home</a></p>
+
+    <div class="row" id="examples"></div>
+
+    <div class="grid">
+        <div class="card">
+            <h2>Query</h2>
+            <textarea id="query" spellcheck="false"></textarea>
+            <div class="row"><button class="primary" id="run">▶ Run query</button><button id="clear">Clear result</button></div>
+        </div>
+        <div class="card">
+            <h2>Result</h2>
+            <pre id="result">Press Run.</pre>
+            <div class="meta" id="meta"></div>
+        </div>
+    </div>
+</main>
+<script>
+    const EXAMPLES = {
+        "Site rating": `{
+  siteRating {
+    average
+    total
+  }
+}`,
+        "Banks with stock": `{
+  bloodBanks(limit: 5) {
+    name
+    district
+    totalUnits
+    stock {
+      bloodGroup
+      units
+    }
+  }
+}`,
+        "Who has O+?": `{
+  bloodBanks(bloodGroup: "O+", limit: 5) {
+    name
+    district
+    stock {
+      bloodGroup
+      units
+    }
+  }
+}`,
+        "Urgent requests": `{
+  urgentRequests(limit: 5) {
+    bloodGroup
+    units
+    urgency
+    hospital
+    neededBy
+  }
+}`,
+        "Donors per group": `{
+  donorCounts {
+    bloodGroup
+    donors
+  }
+}`,
+        "Several at once": `{
+  siteRating { average total }
+  donorCounts { bloodGroup donors }
+  urgentRequests(limit: 3) { bloodGroup urgency hospital }
+}`
+    };
+
+    const $ = (id) => document.getElementById(id);
+    const box = $("examples");
+    Object.keys(EXAMPLES).forEach((name) => {
+        const b = document.createElement("button");
+        b.textContent = name;
+        b.addEventListener("click", () => { $("query").value = EXAMPLES[name]; run(); });
+        box.appendChild(b);
+    });
+    $("query").value = EXAMPLES["Banks with stock"];
+
+    async function run() {
+        $("result").textContent = "Running…";
+        const started = performance.now();
+        try {
+            const res = await fetch("/graphql", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ query: $("query").value })
+            });
+            const data = await res.json();
+            $("result").textContent = JSON.stringify(data, null, 2);
+            const ms = Math.round(performance.now() - started);
+            const failed = !res.ok || data.errors;
+            $("meta").innerHTML = `<span class="${failed ? "bad" : "ok"}">HTTP ${res.status}</span> · ${ms} ms · ${new Blob([JSON.stringify(data)]).size} bytes`;
+        } catch (err) {
+            $("result").textContent = String(err);
+            $("meta").innerHTML = `<span class="bad">Network error</span>`;
+        }
+    }
+    $("run").addEventListener("click", run);
+    $("clear").addEventListener("click", () => { $("result").textContent = ""; $("meta").textContent = ""; });
+    $("query").addEventListener("keydown", (e) => { if ((e.ctrlKey || e.metaKey) && e.key === "Enter") run(); });
+</script>
+</body>
+</html>

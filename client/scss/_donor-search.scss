@@ -1,0 +1,84 @@
+@use "variables" as *;
+@use "mixins" as *;
+
+.ds-wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 110px 20px 60px;
+
+    h1 { margin-bottom: 8px; }
+    .ds-sub { color: $text-secondary; margin-bottom: 24px; }
+}
+
+.ds-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.3fr auto;
+    gap: 10px;
+    margin-bottom: 10px;
+
+    select,
+    input {
+        padding: 11px 12px;
+        border-radius: $radius-small;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: $bg-card;
+        color: $text-primary;
+    }
+
+    .ds-remove {
+        border: 1px solid rgba($red, 0.4);
+        background: transparent;
+        color: $red-bright;
+        border-radius: $radius-small;
+        padding: 0 14px;
+        cursor: pointer;
+
+        &:hover { background: rgba($red, 0.15); }
+    }
+
+    @include max-width(700px) {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.ds-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 16px 0 26px;
+}
+
+.ds-btn {
+    padding: 11px 20px;
+    border-radius: 999px;
+    border: 1px solid rgba($red, 0.45);
+    background: transparent;
+    color: $text-primary;
+    cursor: pointer;
+    transition: $transition;
+
+    &:hover { background: rgba($red, 0.18); }
+
+    &.primary {
+        background: $red;
+        border-color: $red;
+        &:hover { background: $red-bright; }
+    }
+}
+
+.ds-results {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 14px;
+
+    .ds-card {
+        padding: 16px;
+        border-radius: $radius-medium;
+        background: $bg-card;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+
+        strong { display: block; }
+        span { color: $text-muted; font-size: 13px; }
+        .ds-group { color: $red-bright; font-weight: 700; }
+    }
+}

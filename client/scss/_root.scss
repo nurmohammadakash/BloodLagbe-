@@ -1,0 +1,29 @@
+@use "variables" as *;
+
+:root {
+    --bg-main: #{$bg-main};
+    --bg-secondary: #{$bg-secondary};
+    --bg-card: #{$bg-card};
+    --bg-card-hover: #{$bg-card-hover};
+
+    --red: #{$red};
+    --red-bright: #{$red-bright};
+    --red-dark: #{$red-dark};
+    --red-soft: #{rgba($red, 0.15)};
+
+    --white: #{$white};
+    --text-primary: #{$text-primary};
+    --text-secondary: #{$text-secondary};
+    --text-muted: #{$text-muted};
+
+    --border: rgba(255, 255, 255, 0.08);
+    --border-red: #{rgba($red, 0.35)};
+
+    --shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+
+    --radius-small: #{$radius-small};
+    --radius-medium: #{$radius-medium};
+    --radius-large: #{$radius-large};
+
+    --transition: #{$transition};
+}

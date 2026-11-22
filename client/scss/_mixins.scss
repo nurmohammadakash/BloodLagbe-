@@ -1,0 +1,15 @@
+@use "variables" as *;
+
+// Wraps content in a max-width media query
+@mixin max-width($px) {
+    @media (max-width: $px) {
+        @content;
+    }
+}
+
+// Shared look for small cards
+@mixin card-surface($radius: $radius-medium) {
+    border: 1px solid var(--border);
+    border-radius: $radius;
+    background: var(--bg-card);
+}

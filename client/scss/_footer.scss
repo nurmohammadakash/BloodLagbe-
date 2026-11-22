@@ -1,0 +1,74 @@
+/* =========================================================
+   12. FOOTER
+   ========================================================= */
+
+.footer {
+    padding: 55px 0 25px;
+
+    background:
+        #070709;
+}
+
+.footer-container {
+    width: min(1200px, 92%);
+
+    margin: auto;
+}
+
+.footer-main {
+    max-width: 450px;
+}
+
+.footer-main p {
+    margin-top: 15px;
+
+    color: var(--text-muted);
+
+    font-size: 12px;
+
+    line-height: 1.7;
+}
+
+.footer-links {
+    display: flex;
+
+    gap: 25px;
+
+    margin-top: 30px;
+
+    flex-wrap: wrap;
+}
+
+.footer-links a {
+    color: var(--text-muted);
+
+    font-size: 12px;
+
+    transition: var(--transition);
+}
+
+.footer-links a:hover {
+    color: var(--red);
+}
+
+.footer-bottom {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-top: 40px;
+
+    padding-top: 20px;
+
+    border-top:
+        1px solid var(--border);
+
+    color: var(--text-muted);
+
+    font-size: 10px;
+}
+

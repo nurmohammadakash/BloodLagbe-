@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Blood-Lagbe | Profile</title>
+<link rel="stylesheet" href="/css/social.css">
+<link rel="stylesheet" href="/css/profile.css">
+</head>
+<body class="sx">
+<header class="sx-nav" id="sxNav"></header>
+
+<main class="pf-wrap">
+    <section class="sx-card pf-head" id="pfHead"></section>
+
+    <div id="pfBody" hidden>
+        <nav class="pf-tabs">
+            <button class="pf-tab active" data-tab="posts">Posts</button>
+            <button class="pf-tab" data-tab="friends">Friends</button>
+            <button class="pf-tab" data-tab="reviews">Reviews</button>
+        </nav>
+        <div class="pf-grid">
+            <aside class="pf-side" id="pfSide"></aside>
+            <section id="pfMain"></section>
+        </div>
+    </div>
+</main>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/theme.js"></script>
+<script src="/js/social-core.js"></script>
+<script src="/js/profile.js"></script>
+</body>
+</html>

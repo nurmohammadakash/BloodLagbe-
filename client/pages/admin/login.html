@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blood-Lagbe | Admin Login</title>
+<link rel="stylesheet" href="/css/admin.css">
+</head>
+<body class="admin-body">
+<main class="auth-page">
+  <section class="auth-card">
+    <div class="brand"><span>🩸</span><span>Blood<b>Lagbe</b></span></div>
+    <h1>Admin Panel</h1>
+    <p class="sub">Sign in to manage the platform</p>
+
+    <form id="adminLoginForm" novalidate>
+      <div class="field">
+        <label for="login">Username or email</label>
+        <input id="login" type="text" autocomplete="username" placeholder="admin@bloodlagbe.com">
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <div class="pw-wrap">
+          <input id="password" type="password" autocomplete="current-password" placeholder="••••••••">
+          <button type="button" id="pwToggle">Show</button>
+        </div>
+      </div>
+      <div class="form-msg" id="formMsg"></div>
+      <button class="btn btn-primary" id="loginBtn" type="submit">Sign in</button>
+    </form>
+
+    <div class="auth-links">
+      <a href="/">← Back to website</a>
+      <button class="icon-btn" type="button" data-theme-toggle>☀️ Light</button>
+    </div>
+  </section>
+</main>
+<script src="/js/theme.js"></script>
+<script src="/js/admin-login.js"></script>
+</body>
+</html>

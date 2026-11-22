@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Blood-Lagbe | Home</title>
+<link rel="stylesheet" href="/css/social.css">
+<link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body class="sx">
+<header class="sx-nav" id="sxNav"></header>
+
+<main class="dash-grid">
+    <aside class="dash-left" id="dashLeft"></aside>
+
+    <section class="dash-center">
+        <div id="viewHome">
+            <div class="sx-card" style="padding-bottom:6px">
+                <h3 style="margin:0">Blood notes</h3>
+                <div class="sx-notes" id="notesStrip"></div>
+            </div>
+
+            <div class="sx-card sx-composer" style="margin:16px 0">
+                <div style="display:flex;align-items:center;gap:11px" id="composerHead"></div>
+                <textarea id="postText" maxlength="2000" placeholder="What's on your mind?"></textarea>
+                <div class="sx-preview" id="postPreview" hidden>
+                    <img id="postPreviewImg" alt="">
+                    <button type="button" id="postPreviewClear" aria-label="Remove image">✕</button>
+                </div>
+                <input type="file" id="postFile" accept="image/jpeg,image/png,image/webp,image/gif" hidden>
+                <div class="sx-composer-row">
+                    <button type="button" class="sx-btn" id="postPhotoBtn">📷 Photo</button>
+                    <button type="button" class="sx-btn primary" id="postBtn">Post</button>
+                </div>
+            </div>
+
+            <button class="sx-btn primary dash-newposts" id="newPostsBtn" hidden>New posts available — tap to refresh</button>
+            <div id="feedList"></div>
+            <div class="sx-empty" id="feedEmpty" hidden>Your feed is empty. Add friends or share your first post.</div>
+            <button class="sx-btn dash-more" id="feedMore" hidden>Load more</button>
+        </div>
+
+        <div id="viewLeaderboard" hidden></div>
+    </section>
+
+    <aside class="dash-right">
+        <section class="sx-card" id="cardRequests" hidden><h3>Friend requests</h3><div id="requestsList"></div></section>
+        <section class="sx-card" id="cardConfirm" hidden><h3>Confirm donations</h3><div id="confirmList"></div></section>
+        <section class="sx-card"><h3>People you may know</h3><div id="suggestList"></div></section>
+    </aside>
+</main>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/theme.js"></script>
+<script src="/js/social-core.js"></script>
+<script src="/js/connection-form.js"></script>
+<script src="/js/dashboard.js"></script>
+</body>
+</html>

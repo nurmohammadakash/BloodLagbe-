@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Blood-Lagbe — Find blood donors near you and help save lives.">
+<title>Blood-Lagbe | Find Blood. Save Lives.</title>
+<link rel="stylesheet" href="./css/main.css">
+<style>
+/* Landing-page visual layer */
+:root{--landing-bg:#070709;--landing-card:#111217;--landing-text:#f6f7f9;--landing-muted:#a8abb5;--landing-red:#e50914;--landing-blue:#1877f2}
+body{background:var(--landing-bg);color:var(--landing-text)}
+body.light-mode{--landing-bg:#f7f8fb;--landing-card:#fff;--landing-text:#111827;--landing-muted:#4b5563;background:#f7f8fb;color:#111827}
+body.light-mode .navbar{background:rgba(255,255,255,.88);border-color:#e5e7eb}
+body.light-mode .nav-floating{background:linear-gradient(135deg,#fff,#eef1f6);box-shadow:0 22px 55px rgba(31,41,55,.15),inset 0 1px #fff}
+body.light-mode .nav-links a,body.light-mode .logo-text{color:#111827}
+body.light-mode .hero-description,body.light-mode .trust-item span,body.light-mode .section-heading p,body.light-mode .stat-label,body.light-mode .footer-main p,body.light-mode .footer-bottom,body.light-mode .video-content p,body.light-mode .cta-content p{color:#374151}
+body.light-mode .btn-outline{color:#111827;border-color:#cbd5e1;background:#fff}
+body.light-mode .section-tag{color:#b91c1c}
+body.light-mode .stat-card,body.light-mode .video-card{background:#fff;border-color:#e5e7eb;box-shadow:0 15px 35px rgba(15,23,42,.08)}
+body.light-mode .footer{background:#eef1f5}
+body.light-mode .theme-toggle{color:#111827;background:#fff;border-color:#d1d5db}
+.navbar{position:fixed;height:100px;background:transparent;border:0;z-index:1000;pointer-events:none}
+.nav-container{position:relative;width:min(1240px,94%);pointer-events:none}
+.nav-floating{pointer-events:auto;position:relative;margin:8px auto 0;width:min(1060px,78vw);min-height:72px;padding:10px 20px;border:1px solid rgba(255,255,255,.12);border-radius:38px;background:linear-gradient(135deg,rgba(30,31,38,.92),rgba(10,10,13,.88));box-shadow:0 24px 60px rgba(0,0,0,.48),inset 0 1px rgba(255,255,255,.14),inset 0 -1px rgba(0,0,0,.6);display:flex;align-items:center;justify-content:space-between;gap:20px;transform-style:preserve-3d;backdrop-filter:blur(18px)}
+.nav-floating:before{content:"";position:absolute;inset:5px;border-radius:33px;border:1px solid rgba(255,255,255,.04);pointer-events:none}
+.nav-floating:after{content:"";position:absolute;left:8%;right:8%;bottom:-13px;height:22px;border-radius:50%;background:rgba(229,9,20,.18);filter:blur(18px);z-index:-1}
+.nav-brand{display:flex;align-items:center;gap:10px;white-space:nowrap}
+.nav-brand .logo-icon{font-size:28px}
+.nav-brand .logo-text{font-size:21px;font-weight:900;color:#fff}
+.nav-brand .logo-text span{color:#ff2735}
+.nav-links{display:flex;align-items:center;gap:24px;flex:1;justify-content:flex-end}
+.nav-links a{color:#c9cbd2;font-size:13px;font-weight:700}
+.nav-links a:hover,.nav-links a.active{color:#fff}
+.nav-auth-actions{display:flex;align-items:center;gap:9px}
+.theme-toggle,.nav-signup{border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:9px 14px;background:rgba(255,255,255,.05);color:#fff;cursor:pointer}
+.nav-signup{background:linear-gradient(135deg,#ff1e2d,#b8000b);border-color:#ff1e2d}
+.nav-theme-floating{position:absolute;right:18px;top:112px;pointer-events:auto}
+.nav-theme-floating .theme-toggle{box-shadow:0 12px 30px rgba(0,0,0,.25)}
+.hero{min-height:100vh;padding-top:105px}
+.hero-ecg{position:absolute;left:50%;transform:translateX(-50%);bottom:64px;width:min(500px,75vw);height:75px;z-index:45;filter:drop-shadow(0 0 8px rgba(229,9,20,.8))}
+.hero-ecg svg{width:100%;height:100%;overflow:visible}
+.hero-ecg path{fill:none;stroke:#ff1424;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.hero-ecg .ecg-glow{stroke:#ff1424;stroke-width:10;opacity:.14;filter:blur(4px)}
+.blood-drop-container{z-index:30}
+.map-section{padding:110px 0}
+.map-filter-wrap{position:relative;z-index:5;display:flex;justify-content:center;margin:0 auto 20px}
+.map-filter-box{position:relative;min-width:290px;padding:15px 18px;border-radius:18px;background:linear-gradient(145deg,#1d1f27,#0d0e12);border:1px solid rgba(255,255,255,.12);box-shadow:0 20px 45px rgba(0,0,0,.35),inset 0 1px rgba(255,255,255,.12);transform-style:preserve-3d}
+.map-filter-box label{display:block;font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:#aeb1ba;margin-bottom:8px}
+.map-filter-box select{width:100%;height:45px;border:1px solid rgba(255,255,255,.12);border-radius:12px;background:#101116;color:#fff;padding:0 12px;font-weight:700;outline:0}
+body.light-mode .map-filter-box{background:linear-gradient(145deg,#fff,#e9edf4);border-color:#d9dee7;box-shadow:0 20px 40px rgba(15,23,42,.12)}
+body.light-mode .map-filter-box label{color:#374151}
+body.light-mode .map-filter-box select{background:#fff;color:#111827;border-color:#cbd5e1}
+.map-wrapper{display:block!important;position:relative!important}
+.blood-map{height:520px;width:100%;border-radius:28px;overflow:hidden;border:1px solid rgba(255,255,255,.1);box-shadow:0 25px 65px rgba(0,0,0,.35)}
+body.light-mode .blood-map{border-color:#dbe0e8;box-shadow:0 25px 55px rgba(15,23,42,.12)}
+.map-radius-note{position:absolute;left:18px;bottom:18px;z-index:3;padding:10px 14px;border-radius:999px;background:rgba(0,0,0,.72);color:#fff;font-size:12px;backdrop-filter:blur(10px)}
+body.light-mode .map-radius-note{background:rgba(255,255,255,.92);color:#111827}
+.awareness-section{padding:110px 0}
+.video-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.video-card{overflow:hidden}
+.video-wrapper{aspect-ratio:16/9}
+.video-wrapper iframe{width:100%;height:100%;border:0}
+.site-rating{padding:90px 0}
+.rating-stars{display:flex;justify-content:center;gap:10px}
+.rating-star{font-size:42px;color:#777;background:none;border:0;cursor:pointer;transition:.2s}
+.rating-star.active,.rating-star:hover{color:#ffc107}
+.rating-message{text-align:center;margin-top:16px;min-height:24px}
+.rating-summary{display:none!important}
+.gsap-3d{transform-style:preserve-3d}
+@media(max-width:900px){.nav-floating{width:94vw}.nav-links{gap:12px}.nav-links a{display:none}.nav-auth-actions{margin-left:auto}.video-grid{grid-template-columns:1fr}.nav-theme-floating{right:10px}}
+@media(max-width:650px){.nav-floating{padding:10px 14px}.nav-brand .logo-text{font-size:18px}.hero-ecg{bottom:35px}.blood-map{height:430px}.nav-theme-floating{top:106px}}
+</style>
+</head>
+<body>
+<header class="navbar">
+  <div class="nav-container">
+    <div class="nav-floating gsap-3d" id="floatingNav">
+      <a href="/" class="nav-brand"><span class="logo-icon">🩸</span><span class="logo-text">Blood<span>Lagbe</span></span></a>
+      <nav class="nav-links">
+        <a href="/" class="active">Home</a>
+        <a href="#find-blood">Find Blood</a>
+        <a href="/donor-search">Multi Search</a>
+        <a href="#community">Community</a>
+        <a href="#awareness">Awareness</a>
+        <div class="nav-auth-actions">
+          <a href="/login" class="nav-login">Login</a>
+          <a href="/signup" class="nav-signup">Sign Up</a>
+        </div>
+      </nav>
+    </div>
+    <div class="nav-theme-floating"><button class="theme-toggle" data-theme-toggle type="button">☀️ Light</button></div>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="home">
+  <div class="hero-grid"></div><div class="hero-glow hero-glow-one"></div><div class="hero-glow hero-glow-two"></div>
+  <div class="hero-container">
+    <div class="hero-content">
+      <div class="hero-badge"><span class="pulse-dot"></span> EVERY SECOND COUNTS</div>
+      <h1>FIND BLOOD.<br><span>SAVE LIVES.</span></h1>
+      <p class="hero-description">Find blood donors near you or help someone who urgently needs blood. One donation can become someone's second chance at life.</p>
+      <div class="hero-buttons">
+        <a href="#find-blood" class="btn btn-primary"><span>🩸</span> Need Blood</a>
+        <a href="#find-blood" class="btn btn-outline"><span>❤️</span> Donate Blood</a>
+      </div>
+      <div class="hero-trust"><div class="trust-item"><strong>1,248+</strong><span>Donors</span></div><div class="trust-divider"></div><div class="trust-item"><strong>856+</strong><span>Lives Helped</span></div><div class="trust-divider"></div><div class="trust-item"><strong>24/7</strong><span>Support</span></div></div>
+    </div>
+    <div class="hero-visual">
+      <div class="blood-orbit orbit-one"></div><div class="blood-orbit orbit-two"></div><div class="blood-glow"></div>
+      <div class="blood-drop-container"><img src="assets/images/blood_img.png" alt="3D Floating Blood Drop" class="blood-drop-image"></div>
+      <div class="hero-ecg" aria-hidden="true">
+        <svg viewBox="0 0 500 80" preserveAspectRatio="none">
+          <path class="ecg-glow" d="M0 42 H135 L150 42 L158 38 L166 42 H205 L220 42 L230 15 L240 68 L250 42 H275 L292 42 L300 35 L308 42 H350 L365 42 L375 8 L386 72 L398 42 H500"/>
+          <path id="ecgPath" d="M0 42 H135 L150 42 L158 38 L166 42 H205 L220 42 L230 15 L240 68 L250 42 H275 L292 42 L300 35 L308 42 H350 L365 42 L375 8 L386 72 L398 42 H500"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-indicator"><span>SCROLL TO EXPLORE</span><div class="scroll-arrow">↓</div></div>
+</section>
+
+<section class="stats-section" id="community"><div class="section-container"><div class="stats-grid">
+<div class="stat-card"><div class="stat-icon">🩸</div><div class="stat-number" data-target="1248">0</div><div class="stat-label">Active Donors</div></div>
+<div class="stat-card"><div class="stat-icon">🏥</div><div class="stat-number" data-target="32">0</div><div class="stat-label">Blood Banks</div></div>
+<div class="stat-card"><div class="stat-icon">❤️</div><div class="stat-number" data-target="856">0</div><div class="stat-label">Blood Requests</div></div>
+<div class="stat-card"><div class="stat-icon">⚡</div><div class="stat-number" data-target="24">0</div><div class="stat-label">Hour Support</div></div>
+</div></div></section>
+
+<section class="urgent-section" id="find-blood"><div class="section-container">
+<div class="section-heading"><div><div class="section-tag">🔴 LIVE REQUESTS</div><h2>Urgent Blood Requests</h2><p>People who need blood right now.</p></div></div>
+<div class="request-grid">
+<article class="request-card"><div class="blood-type">O+</div><div class="request-info"><div class="request-status">URGENT</div><h3>Emergency Blood Needed</h3><p>📍 Chattogram</p><span class="request-time">2 hours ago</span></div><button class="respond-btn respond-auth" type="button">Respond</button></article>
+<article class="request-card"><div class="blood-type">A-</div><div class="request-info"><div class="request-status">URGENT</div><h3>Patient Needs Blood</h3><p>📍 Dhaka</p><span class="request-time">3 hours ago</span></div><button class="respond-btn respond-auth" type="button">Respond</button></article>
+<article class="request-card"><div class="blood-type">B+</div><div class="request-info"><div class="request-status">URGENT</div><h3>Surgery Blood Requirement</h3><p>📍 Cox's Bazar</p><span class="request-time">5 hours ago</span></div><button class="respond-btn respond-auth" type="button">Respond</button></article>
+</div></div></section>
+
+<section class="map-section" id="blood-donor-map"><div class="section-container">
+<div class="section-heading"><div><div class="section-tag">📍 FIND NEARBY</div><h2>Blood Donors Near You</h2><p>Select a blood group to find eligible donors within 5 km of your current location.</p></div></div>
+<div class="map-filter-wrap"><div class="map-filter-box gsap-3d" id="bloodFilterBox"><label for="bloodGroupFilter">Select blood group</label><select id="bloodGroupFilter" aria-label="Select blood group"><option value="">Select blood group</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>AB+</option><option>AB-</option><option>O+</option><option>O-</option></select></div></div>
+<div class="map-wrapper"><div id="bloodMap" class="blood-map" aria-label="Google map showing donors within five kilometres"><div class="map-loading-message">Loading Google Maps…</div></div><div class="map-radius-note">📍 Current location · 5 km radius · Eligible donors only</div></div>
+</div></section>
+
+<section class="awareness-section" id="awareness"><div class="section-container">
+<div class="section-heading"><div><div class="section-tag">🎬 BLOOD AWARENESS</div><h2>Learn. Donate. Save Lives.</h2><p>Understanding blood donation can inspire more people to become lifesavers.</p></div></div>
+<div class="video-grid">
+<article class="video-card"><div class="video-wrapper"><iframe src="https://www.youtube.com/embed/Af0gk_kiGac" title="Blood Donation Awareness" loading="lazy" allowfullscreen></iframe></div><div class="video-content"><span class="video-category">AWARENESS</span><h3>Every Blood Donor Is a Hero</h3><p>Learn about the importance of donating blood.</p></div></article>
+<article class="video-card"><div class="video-wrapper"><iframe src="https://www.youtube.com/embed/8B4K9vXJkqk" title="Blood Donation Education" loading="lazy" allowfullscreen></iframe></div><div class="video-content"><span class="video-category">EDUCATION</span><h3>Why Blood Donation Matters</h3><p>Discover how blood donation helps patients in emergencies.</p></div></article>
+<article class="video-card"><div class="video-wrapper"><iframe src="https://www.youtube.com/embed/7C4p7QqG9xE" title="Blood Donation Community" loading="lazy" allowfullscreen></iframe></div><div class="video-content"><span class="video-category">COMMUNITY</span><h3>Be Someone's Lifeline</h3><p>A simple donation can make a meaningful difference.</p></div></article>
+</div></div></section>
+
+<section class="site-rating" id="rate-us"><div class="section-container"><div class="section-heading" style="justify-content:center;text-align:center"><div><div class="section-tag">⭐ YOUR EXPERIENCE MATTERS</div><h2>Rate Us</h2><p>How would you rate your Blood-Lagbe experience?</p></div></div><div class="rating-stars" id="ratingStars"><button class="rating-star" data-rating="1" type="button">★</button><button class="rating-star" data-rating="2" type="button">★</button><button class="rating-star" data-rating="3" type="button">★</button><button class="rating-star" data-rating="4" type="button">★</button><button class="rating-star" data-rating="5" type="button">★</button></div><div class="rating-message" id="ratingMessage"></div></div></section>
+
+<section class="cta-section"><div class="cta-glow"></div><div class="cta-content"><div class="cta-icon">🩸</div><div class="section-tag">BECOME A LIFESAVER</div><h2>Someone, Somewhere,<br>Needs Your Blood.</h2><p>Register today and become part of a community that helps people when they need it most.</p><a href="/register" class="btn btn-primary">Become a Donor →</a></div></section>
+</main>
+<footer class="footer"><div class="footer-container"><div class="footer-main"><a href="/" class="logo"><span class="logo-icon">🩸</span><span class="logo-text">Blood<span>Lagbe</span></span></a><p>Connecting blood donors with people who need them. Together, we can save lives.</p></div><div class="footer-links"><a href="/">Home</a><a href="#find-blood">Find Blood</a><a href="#community">Community</a><a href="#awareness">Awareness</a><a href="/login">Login</a><a href="/signup">Sign Up</a></div><div class="developer-footer"><div><div class="section-tag">DEVELOPERS</div><p>Built with care for the Blood-Lagbe community.</p></div><div class="developer-list"><div class="developer-card"><strong>Nur Mohammad Akash</strong><span>nurmohammadakash1821444618@gmail.com</span></div><div class="developer-card"><strong>Niloy Das</strong><span>niloydas@gmail.com</span></div><div class="developer-card"><strong>Apurba Dey</strong><span>apurba dey@gmail.com</span></div></div></div><div class="footer-bottom"><span>© 2026 Blood-Lagbe. All rights reserved.</span><span>Find Blood. Save Lives. 🩸</span></div></div></footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
+<script src="./js/theme.js"></script><script src="./js/gsap-init.js"></script><script src="./js/maps.js"></script><script src="./js/main.js"></script><script src="./js/index.js"></script>
+</body></html>

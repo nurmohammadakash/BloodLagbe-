@@ -1,0 +1,35 @@
+{
+  "name": "Blood stock shortage predictor",
+  "version": 1,
+  "horizon_days": 7,
+  "features": [
+    "stock",
+    "out7_per_day",
+    "out30_per_day",
+    "in30_per_day",
+    "expiring7",
+    "open_demand",
+    "low_threshold",
+    "days_cover"
+  ],
+  "scale": [
+    40.0,
+    8.0,
+    8.0,
+    8.0,
+    20.0,
+    15.0,
+    15.0,
+    30.0
+  ],
+  "clip": 1.5,
+  "levels": {
+    "high": 0.6,
+    "medium": 0.3
+  },
+  "trained_on": "simulated blood stock data",
+  "metrics": {
+    "accuracy": 0.897,
+    "auc": 0.963
+  }
+}

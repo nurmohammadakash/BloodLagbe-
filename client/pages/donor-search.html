@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Multi Donor Search | Blood-Lagbe</title>
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/donor-search.css">
+</head>
+<body class="ds-page">
+<header class="ds-topbar">
+    <a href="/" class="ds-brand"><span>🩸</span><span>Blood<span>Lagbe</span></span></a>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/donor-search" class="active">Multi Search</a>
+        <a href="/login">Login</a>
+        <a href="/signup" class="ds-signup">Sign Up</a>
+    </nav>
+</header>
+
+<main class="ds-wrap">
+    <div class="ds-head">
+        <span class="ds-tag">Multi Donor Search</span>
+        <h1>Find donors in <em>several places</em> at once</h1>
+        <p class="ds-sub">Add one row for every blood group and district you need. Each row has its own dropdowns and text box. Press Search to load all rows together.</p>
+    </div>
+
+    <form id="dsForm" class="ds-card-panel" autocomplete="off">
+        <div id="dsRows"></div>
+        <div class="ds-actions">
+            <button type="button" class="ds-btn" id="dsAdd">+ Add another row</button>
+            <button type="submit" class="ds-btn primary">Search donors</button>
+            <button type="button" class="ds-btn" id="dsReset">Reset</button>
+        </div>
+    </form>
+
+    <p id="dsStatus" class="ds-status"></p>
+    <div id="dsResults" class="ds-results"></div>
+</main>
+<script src="/js/theme.js"></script>
+<script src="/js/bangladesh-locations.js"></script>
+<script src="/js/donor-search.js"></script>
+</body>
+</html>

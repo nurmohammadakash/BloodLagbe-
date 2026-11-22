@@ -1,0 +1,307 @@
+/* =========================================================
+   13. RESPONSIVE — TABLET
+   ========================================================= */
+@use "variables" as *;
+@use "mixins" as *;
+@include max-width($bp-tablet) {
+
+    .hero-container {
+        grid-template-columns: 1fr;
+
+        text-align: center;
+    }
+
+    .hero-content {
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+    }
+
+    .hero-description {
+        max-width: 650px;
+    }
+
+    .hero-visual {
+        min-height: 500px;
+    }
+
+    .stats-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .request-grid {
+        grid-template-columns:
+            1fr;
+    }
+
+    .video-grid {
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+    .video-card:last-child {
+        grid-column:
+            1 / -1;
+
+        max-width: 500px;
+
+        width: 100%;
+
+        margin: auto;
+    }
+}
+
+
+/* =========================================================
+   14. RESPONSIVE — MOBILE
+   ========================================================= */
+
+@include max-width($bp-mobile) {
+
+    .navbar {
+        height: 68px;
+    }
+
+    .nav-links {
+        position: absolute;
+
+        top: 68px;
+        left: 0;
+
+        width: 100%;
+
+        display: none;
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 0;
+
+        padding: 15px;
+
+        background:
+            rgba(10,10,12,0.98);
+
+        border-bottom:
+            1px solid var(--border);
+    }
+
+    .nav-links.show {
+        display: flex;
+    }
+
+    .nav-links a {
+        padding: 14px;
+    }
+
+    .nav-login {
+        text-align: center;
+
+        margin-top: 5px;
+    }
+
+    .mobile-menu-btn {
+        display: block;
+    }
+
+    .hero {
+        padding-top: 100px;
+    }
+
+    .hero h1 {
+        font-size:
+            clamp(45px, 15vw, 70px);
+
+        letter-spacing: -3px;
+    }
+
+    .hero-description {
+        font-size: 14px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+
+        width: 100%;
+
+        max-width: 300px;
+    }
+
+    .hero-buttons .btn {
+        width: 100%;
+    }
+
+    .hero-trust {
+        gap: 12px;
+    }
+
+    .trust-divider {
+        height: 25px;
+    }
+
+    .hero-visual {
+        min-height: 390px;
+    }
+
+    .blood-drop-container {
+        width: 280px;
+        height: 350px;
+        top: 46%;
+    }
+
+    .blood-drop-image {
+        max-width: 260px;
+    }
+
+    .blood-orbit {
+        width: 300px;
+        height: 300px;
+    }
+
+    .orbit-two {
+        width: 350px;
+        height: 350px;
+    }
+
+    .scroll-indicator {
+        display: none;
+    }
+
+    .stats-grid {
+        grid-template-columns:
+            1fr 1fr;
+
+        gap: 10px;
+    }
+
+    .stat-card {
+        padding: 20px;
+    }
+
+    .stat-number {
+        font-size: 27px;
+    }
+
+    .urgent-section,
+    .map-section,
+    .awareness-section {
+        padding: 75px 0;
+    }
+
+    .section-heading {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        margin-bottom: 25px;
+    }
+
+    .section-heading h2 {
+        font-size: 32px;
+    }
+
+    .view-all {
+        display: none;
+    }
+
+    .request-card {
+        padding: 17px;
+    }
+
+    .respond-btn {
+        padding: 8px 10px;
+    }
+
+    .map-wrapper {
+        grid-template-columns:
+            1fr;
+    }
+
+    .blood-map {
+        min-height: 380px;
+    }
+
+    .map-panel {
+        border-left: none;
+
+        border-top:
+            1px solid var(--border);
+    }
+
+    .video-grid {
+        grid-template-columns:
+            1fr;
+    }
+
+    .video-card:last-child {
+        grid-column: auto;
+
+        max-width: none;
+    }
+
+    .cta-section {
+        padding: 90px 20px;
+    }
+
+    .cta-content h2 {
+        font-size: 38px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+}
+
+
+/* =========================================================
+   15. EXTRA SMALL DEVICES
+   ========================================================= */
+
+@include max-width($bp-small) {
+
+    .hero h1 {
+        font-size: 42px;
+    }
+
+    .hero-trust {
+        gap: 8px;
+    }
+
+    .trust-item strong {
+        font-size: 15px;
+    }
+
+    .trust-item span {
+        font-size: 9px;
+    }
+
+    .stat-card {
+        padding: 15px;
+    }
+
+    .stat-number {
+        font-size: 23px;
+    }
+
+    .blood-type {
+        width: 50px;
+        height: 50px;
+
+        font-size: 16px;
+    }
+
+    .blood-drop-container {
+        width: 250px;
+    }
+    
+    .blood-drop-image {
+        max-width: 190px;
+    }
+
+}
