@@ -71,6 +71,7 @@ body.light-mode .map-radius-note{background:rgba(255,255,255,.92);color:#111827}
 @media(max-width:900px){.nav-floating{width:94vw}.nav-links{gap:12px}.nav-links a{display:none}.nav-auth-actions{margin-left:auto}.video-grid{grid-template-columns:1fr}.nav-theme-floating{right:10px}}
 @media(max-width:650px){.nav-floating{padding:10px 14px}.nav-brand .logo-text{font-size:18px}.hero-ecg{bottom:35px}.blood-map{height:430px}.nav-theme-floating{top:106px}}
 </style>
+<link rel="stylesheet" href="./css/home-pro.css">
 </head>
 <body>
 <header class="navbar">
@@ -105,7 +106,7 @@ body.light-mode .map-radius-note{background:rgba(255,255,255,.92);color:#111827}
         <a href="#find-blood" class="btn btn-primary"><span>🩸</span> Need Blood</a>
         <a href="#find-blood" class="btn btn-outline"><span>❤️</span> Donate Blood</a>
       </div>
-      <div class="hero-trust"><div class="trust-item"><strong>1,248+</strong><span>Donors</span></div><div class="trust-divider"></div><div class="trust-item"><strong>856+</strong><span>Lives Helped</span></div><div class="trust-divider"></div><div class="trust-item"><strong>24/7</strong><span>Support</span></div></div>
+      <div class="hero-trust"><div class="trust-item"><strong data-live="users" data-suffix="+">0</strong><span>Users</span></div><div class="trust-divider"></div><div class="trust-item"><strong data-live="lives" data-suffix="+">0</strong><span>Lives Helped</span></div><div class="trust-divider"></div><div class="trust-item"><strong>24/7</strong><span>Support</span></div></div>
     </div>
     <div class="hero-visual">
       <div class="blood-orbit orbit-one"></div><div class="blood-orbit orbit-two"></div><div class="blood-glow"></div>
@@ -120,12 +121,15 @@ body.light-mode .map-radius-note{background:rgba(255,255,255,.92);color:#111827}
   </div>
   <div class="scroll-indicator"><span>SCROLL TO EXPLORE</span><div class="scroll-arrow">↓</div></div>
 </section>
-
+<div class="fx-ticker" aria-hidden="true"><div class="fx-ticker-track">
+<span>🩸 Find donors near you</span><span>❤️ One donation can save up to 3 lives</span><span>⚡ Urgent requests, real-time</span><span>🏥 Connected blood banks</span><span>🤝 A community that cares</span><span>🩸 A+ A− B+ B− AB+ AB− O+ O−</span>
+<span>🩸 Find donors near you</span><span>❤️ One donation can save up to 3 lives</span><span>⚡ Urgent requests, real-time</span><span>🏥 Connected blood banks</span><span>🤝 A community that cares</span><span>🩸 A+ A− B+ B− AB+ AB− O+ O−</span>
+</div></div>
 <section class="stats-section" id="community"><div class="section-container"><div class="stats-grid">
-<div class="stat-card"><div class="stat-icon">🩸</div><div class="stat-number" data-target="1248">0</div><div class="stat-label">Active Donors</div></div>
-<div class="stat-card"><div class="stat-icon">🏥</div><div class="stat-number" data-target="32">0</div><div class="stat-label">Blood Banks</div></div>
-<div class="stat-card"><div class="stat-icon">❤️</div><div class="stat-number" data-target="856">0</div><div class="stat-label">Blood Requests</div></div>
-<div class="stat-card"><div class="stat-icon">⚡</div><div class="stat-number" data-target="24">0</div><div class="stat-label">Hour Support</div></div>
+<div class="stat-card"><div class="stat-icon">🩸</div><div class="stat-number" data-live="users">0</div><div class="stat-label">Registered Users</div></div>
+<div class="stat-card"><div class="stat-icon">🏥</div><div class="stat-number" data-live="banks">0</div><div class="stat-label">Blood Banks</div></div>
+<div class="stat-card"><div class="stat-icon">❤️</div><div class="stat-number" data-live="requests">0</div><div class="stat-label">Blood Requests</div></div>
+<div class="stat-card"><div class="stat-icon">⚡</div><div class="stat-number" data-live="support">0</div><div class="stat-label">Hour Support</div></div>
 </div></div></section>
 
 <section class="urgent-section" id="find-blood"><div class="section-container">
@@ -139,22 +143,30 @@ body.light-mode .map-radius-note{background:rgba(255,255,255,.92);color:#111827}
 <section class="map-section" id="blood-donor-map"><div class="section-container">
 <div class="section-heading"><div><div class="section-tag">📍 FIND NEARBY</div><h2>Blood Donors Near You</h2><p>Select a blood group to find eligible donors within 5 km of your current location.</p></div></div>
 <div class="map-filter-wrap"><div class="map-filter-box gsap-3d" id="bloodFilterBox"><label for="bloodGroupFilter">Select blood group</label><select id="bloodGroupFilter" aria-label="Select blood group"><option value="">Select blood group</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>AB+</option><option>AB-</option><option>O+</option><option>O-</option></select></div></div>
-<div class="map-wrapper"><div id="bloodMap" class="blood-map" aria-label="Google map showing donors within five kilometres"><div class="map-loading-message">Loading Google Maps…</div></div><div class="map-radius-note">📍 Current location · 5 km radius · Eligible donors only</div></div>
+<div class="map-wrapper"><div id="bloodMap" class="blood-map" aria-label="Map showing donors within five kilometres"><div class="map-loading-message">Loading map…</div></div><div class="map-radius-note">📍 Current location · 5 km radius · Eligible donors only</div></div>
 </div></section>
 
 <section class="awareness-section" id="awareness"><div class="section-container">
 <div class="section-heading"><div><div class="section-tag">🎬 BLOOD AWARENESS</div><h2>Learn. Donate. Save Lives.</h2><p>Understanding blood donation can inspire more people to become lifesavers.</p></div></div>
 <div class="video-grid">
-<article class="video-card"><div class="video-wrapper"><iframe src="https://www.youtube.com/embed/Af0gk_kiGac" title="Blood Donation Awareness" loading="lazy" allowfullscreen></iframe></div><div class="video-content"><span class="video-category">AWARENESS</span><h3>Every Blood Donor Is a Hero</h3><p>Learn about the importance of donating blood.</p></div></article>
-<article class="video-card"><div class="video-wrapper"><iframe src="https://www.youtube.com/embed/8B4K9vXJkqk" title="Blood Donation Education" loading="lazy" allowfullscreen></iframe></div><div class="video-content"><span class="video-category">EDUCATION</span><h3>Why Blood Donation Matters</h3><p>Discover how blood donation helps patients in emergencies.</p></div></article>
-<article class="video-card"><div class="video-wrapper"><iframe src="https://www.youtube.com/embed/7C4p7QqG9xE" title="Blood Donation Community" loading="lazy" allowfullscreen></iframe></div><div class="video-content"><span class="video-category">COMMUNITY</span><h3>Be Someone's Lifeline</h3><p>A simple donation can make a meaningful difference.</p></div></article>
+<article class="video-card"><div class="video-wrapper"><iframe src="https://www.youtube.com/embed/LrzYXUQknWM?rel=0" title="Blood Donations Needed - CDC animation" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><div class="video-content"><span class="video-category">DONATION ANIMATION</span><h3>Give Blood, Save a Life</h3><p>A short animated message on why regular blood donors are so important.</p></div></article>
+<article class="video-card"><div class="video-wrapper"><iframe src="https://www.youtube.com/embed/xfZhb6lmxjk?rel=0" title="Why do blood types matter? - TED-Ed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><div class="video-content"><span class="video-category">BLOOD TYPES</span><h3>Why Do Blood Types Matter?</h3><p>An animated lesson on A, B, AB and O groups and the Rh factor.</p></div></article>
+<article class="video-card"><div class="video-wrapper"><iframe src="https://www.youtube.com/embed/qcZKbjYyOfE?rel=0" title="Blood transfusion - TED-Ed" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><div class="video-content"><span class="video-category">TRANSFUSION</span><h3>How Blood Transfusion Works</h3><p>See how donated blood reaches a patient and why matching matters.</p></div></article>
 </div></div></section>
 
-<section class="site-rating" id="rate-us"><div class="section-container"><div class="section-heading" style="justify-content:center;text-align:center"><div><div class="section-tag">⭐ YOUR EXPERIENCE MATTERS</div><h2>Rate Us</h2><p>How would you rate your Blood-Lagbe experience?</p></div></div><div class="rating-stars" id="ratingStars"><button class="rating-star" data-rating="1" type="button">★</button><button class="rating-star" data-rating="2" type="button">★</button><button class="rating-star" data-rating="3" type="button">★</button><button class="rating-star" data-rating="4" type="button">★</button><button class="rating-star" data-rating="5" type="button">★</button></div><div class="rating-message" id="ratingMessage"></div></div></section>
+<section class="site-rating" id="rate-us"><div class="section-container"><div class="rating-card"><div class="rating-glow"></div><div class="section-heading" style="justify-content:center;text-align:center"><div><div class="section-tag">⭐ YOUR EXPERIENCE MATTERS</div><h2>Rate Us</h2><p>How would you rate your Blood-Lagbe experience?</p></div></div><div class="rating-face" id="fxRatingFace" aria-hidden="true">🩸</div><div class="rating-stars" id="ratingStars"><button class="rating-star" data-rating="1" type="button">★</button><button class="rating-star" data-rating="2" type="button">★</button><button class="rating-star" data-rating="3" type="button">★</button><button class="rating-star" data-rating="4" type="button">★</button><button class="rating-star" data-rating="5" type="button">★</button></div><div class="rating-caption" id="fxRatingLabel">Tap a star to rate</div><div class="rating-message" id="ratingMessage"></div></div></div></section>
+
+<section class="team-section" id="developers"><div class="section-container"><div class="section-heading" style="justify-content:center;text-align:center"><div><div class="section-tag">💻 BEHIND THE PROJECT</div><h2>Meet the Developers</h2><p>Built with care for the Blood-Lagbe community.</p></div></div>
+<div class="team-grid">
+
+<div class="developer-card team-card"><div class="team-avatar"><span>ND</span></div><strong>Niloy Das</strong><span class="team-mail">niloydas@gmail.com</span></div>
+<div class="developer-card team-card"><div class="team-avatar"><span>NA</span></div><strong>Nur Mohammad Akash</strong><span class="team-mail">nurmohammadakash1821444618@gmail.com</span></div>
+<div class="developer-card team-card"><div class="team-avatar"><span>AD</span></div><strong>Apurba Dey</strong><span class="team-mail">apurba dey@gmail.com</span></div>
+</div></div></section>
 
 <section class="cta-section"><div class="cta-glow"></div><div class="cta-content"><div class="cta-icon">🩸</div><div class="section-tag">BECOME A LIFESAVER</div><h2>Someone, Somewhere,<br>Needs Your Blood.</h2><p>Register today and become part of a community that helps people when they need it most.</p><a href="/register" class="btn btn-primary">Become a Donor →</a></div></section>
 </main>
-<footer class="footer"><div class="footer-container"><div class="footer-main"><a href="/" class="logo"><span class="logo-icon">🩸</span><span class="logo-text">Blood<span>Lagbe</span></span></a><p>Connecting blood donors with people who need them. Together, we can save lives.</p></div><div class="footer-links"><a href="/">Home</a><a href="#find-blood">Find Blood</a><a href="#community">Community</a><a href="#awareness">Awareness</a><a href="/login">Login</a><a href="/signup">Sign Up</a></div><div class="developer-footer"><div><div class="section-tag">DEVELOPERS</div><p>Built with care for the Blood-Lagbe community.</p></div><div class="developer-list"><div class="developer-card"><strong>Nur Mohammad Akash</strong><span>nurmohammadakash1821444618@gmail.com</span></div><div class="developer-card"><strong>Niloy Das</strong><span>niloydas@gmail.com</span></div><div class="developer-card"><strong>Apurba Dey</strong><span>apurba dey@gmail.com</span></div></div></div><div class="footer-bottom"><span>© 2026 Blood-Lagbe. All rights reserved.</span><span>Find Blood. Save Lives. 🩸</span></div></div></footer>
+<footer class="footer"><div class="footer-container"><div class="footer-main"><a href="/" class="logo"><span class="logo-icon">🩸</span><span class="logo-text">Blood<span>Lagbe</span></span></a><p>Connecting blood donors with people who need them. Together, we can save lives.</p></div><div class="footer-links"><a href="/">Home</a><a href="#find-blood">Find Blood</a><a href="#community">Community</a><a href="#awareness">Awareness</a><a href="/login">Login</a><a href="/signup">Sign Up</a></div><div class="footer-bottom"><span>© 2026 Blood-Lagbe. All rights reserved.</span><span>Find Blood. Save Lives. 🩸</span></div></div></footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
-<script src="./js/theme.js"></script><script src="./js/gsap-init.js"></script><script src="./js/maps.js"></script><script src="./js/main.js"></script><script src="./js/index.js"></script>
+<script src="./js/theme.js"></script><script src="./js/gsap-init.js"></script><script src="./js/maps.js"></script><script src="./js/main.js"></script><script src="./js/index.js"></script><script src="./js/index.js"></script><script src="./js/home-fx.js"></script><script src="./js/home-fx.js"></script><script src="./js/live-stats.js"></script>
 </body></html>

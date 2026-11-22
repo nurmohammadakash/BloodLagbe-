@@ -59,7 +59,7 @@
                         <label for="login">Email or Username</label>
                         <div class="input-wrapper">
                             <span class="input-icon">👤</span>
-                            <input type="text" id="login" name="login" placeholder="Enter your email or username" autocomplete="username" required>
+                            <input type="text" id="login" name="login" placeholder="Enter your email or username" autocomplete="off" required>
                         </div>
                         <small class="field-error" id="loginError"></small>
                     </div>
@@ -71,7 +71,7 @@
                         </div>
                         <div class="input-wrapper">
                             <span class="input-icon">🔒</span>
-                            <input type="password" id="password" name="password" placeholder="Enter your password" autocomplete="current-password" required>
+                            <input type="password" id="password" name="password" placeholder="Enter your password" autocomplete="new-password" required>
                             <button type="button" class="password-toggle" data-target="password">Show</button>
                         </div>
                         <small class="field-error" id="passwordError"></small>
@@ -99,5 +99,20 @@
     <script src="../../js/theme.js"></script>
     <script src="../../js/gsap-init.js"></script>
     <script src="../../js/login.js"></script>
+    <script>
+  // Keep login fields empty: browsers may autofill saved credentials after page load
+  (function () {
+    function clearLogin() {
+      ["login", "password"].forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) el.value = "";
+      });
+    }
+    clearLogin();
+    window.addEventListener("pageshow", clearLogin);
+    setTimeout(clearLogin, 150);
+    setTimeout(clearLogin, 600);
+  })();
+</script>
 </body>
 </html>

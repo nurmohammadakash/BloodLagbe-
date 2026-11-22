@@ -16,12 +16,12 @@
     <form id="adminLoginForm" novalidate>
       <div class="field">
         <label for="login">Username or email</label>
-        <input id="login" type="text" autocomplete="username" placeholder="admin@bloodlagbe.com">
+        <input id="login" type="text" autocomplete="off" placeholder="admin@bloodlagbe.com">
       </div>
       <div class="field">
         <label for="password">Password</label>
         <div class="pw-wrap">
-          <input id="password" type="password" autocomplete="current-password" placeholder="••••••••">
+          <input id="password" type="password" autocomplete="new-password" placeholder="••••••••">
           <button type="button" id="pwToggle">Show</button>
         </div>
       </div>
@@ -37,5 +37,20 @@
 </main>
 <script src="/js/theme.js"></script>
 <script src="/js/admin-login.js"></script>
+<script>
+  // Keep login fields empty: browsers may autofill saved credentials after page load
+  (function () {
+    function clearLogin() {
+      ["login", "password"].forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) el.value = "";
+      });
+    }
+    clearLogin();
+    window.addEventListener("pageshow", clearLogin);
+    setTimeout(clearLogin, 150);
+    setTimeout(clearLogin, 600);
+  })();
+</script>
 </body>
 </html>

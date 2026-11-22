@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const publicController = require("../controllers/public.controller");
-
+router.get("/stats", publicController.getPublicStats);
 router.get("/urgent-requests", publicController.listUrgentRequests);
 router.get("/donors", publicController.listPublicDonors);
 router.get("/google-maps-config", publicController.googleMapsConfig);

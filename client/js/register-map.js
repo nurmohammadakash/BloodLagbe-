@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   let map, marker;
   try {
     await window.BloodLagbeMaps.load();
-    map = new google.maps.Map(mapEl, {center:{lat:23.685,lng:90.3563},zoom:7,mapTypeControl:false,streetViewControl:false});
+    mapEl.innerHTML = ""; map = await window.BloodLagbeMaps.createMap(mapEl, {lat:23.685,lng:90.3563}, 7);
   } catch (e) { mapEl.innerHTML=`<div class="map-loading-message">${e.message}</div>`; return; }
   let timer;
   async function update() {
@@ -23,8 +23,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       try {
         if(status) status.textContent="Locating your address…";
         const result=await window.BloodLagbeMaps.geocode(parts.join(", "));
-        const position={lat:result.lat,lng:result.lng}; map.setCenter(position);map.setZoom(15);
-        if(marker) marker.setMap(null); marker=new google.maps.Marker({map,position,title:"Selected registration address"});
+        const position={lat:result.lat,lng:result.lng}; map.setView([position.lat,position.lng],15);
+        if(marker) marker.remove(); marker=window.BloodLagbeMaps.dot(map,position,"#e50914","Selected registration address");
         lat.value=result.lat;lng.value=result.lng;if(status)status.textContent=`Located: ${result.formatted}`;
       } catch { if(status) status.textContent="Address could not be located yet. Add more address details."; }
     },500);

@@ -3,20 +3,48 @@ const db = require("../config/db");
 
 const listUrgentRequests = async (req, res) => {
     try {
-                const [rows] = await db.execute(`
-            SELECT user_id, username, blood_group, district, latitude, longitude, ${distanceSelect}
-            FROM user
-            WHERE ${where}${distanceWhere}
-            ORDER BY ${distanceOrder}
-            LIMIT 100
-        `, [...selectParams, ...groupParams, ...districtParams, ...whereParams]);
+        const [rows] = await db.execute(`
+            SELECT request_id, blood_group, units_required, urgency_level,
+                   patient_name, hospital_name, hospital_address,
+                   required_date, created_at
+            FROM blood_request
+            WHERE status = 'Pending'
+              AND bloodbank_id IS NULL
+              AND urgency_level IN ('High', 'Critical')
+              AND required_date >= CURDATE()
+            ORDER BY FIELD(urgency_level, 'Critical', 'High'), created_at DESC
+            LIMIT 12
+        `);
         res.json({ success: true, requests: rows });
     } catch (error) {
         console.error("Public urgent request error:", error);
         res.status(500).json({ success: false, message: "Unable to load urgent blood requests." });
     }
 };
-
+// Live numbers for the homepage counters (users, blood banks, blood requests, lives helped)
+const getPublicStats = async (req, res) => {
+    const count = async (sql) => {
+        try {
+            const [rows] = await db.execute(sql);
+            return Number(rows[0].total) || 0;
+        } catch (error) {
+            console.error("Public stats query error:", error.message);
+            return 0;
+        }
+    };
+    try {
+        const users = await count("SELECT COUNT(*) AS total FROM user WHERE email_verified = 1 AND account_status = 'Active'");
+        const banks = await count("SELECT COUNT(*) AS total FROM blood_bank WHERE email_verified = 1 AND status NOT IN ('Rejected', 'Inactive')");
+        const requests = await count("SELECT COUNT(*) AS total FROM blood_request");
+        const connections = await count("SELECT COUNT(*) AS total FROM blood_connection WHERE status = 'Successful'");
+        const exchanges = await count("SELECT COUNT(*) AS total FROM blood_exchange WHERE status = 'Successful'");
+        res.set("Cache-Control", "no-store");
+        res.json({ success: true, users, banks, requests, lives_helped: connections + exchanges });
+    } catch (error) {
+        console.error("Public stats error:", error);
+        res.status(500).json({ success: false, message: "Unable to load statistics." });
+    }
+};
 const listPublicDonors = async (req, res) => {
     try {
         const bloodGroup = String(req.query.blood_group || "").trim();
@@ -182,6 +210,7 @@ const getSiteRating = async (req, res) => {
 };
 module.exports = {
     listUrgentRequests,
+    getPublicStats,
     listPublicDonors,
     googleMapsConfig,
     checkUsername,

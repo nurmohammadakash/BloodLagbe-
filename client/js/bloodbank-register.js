@@ -8,13 +8,34 @@ document.addEventListener("DOMContentLoaded", () => {
   upazila.addEventListener("change",geocode);
   [$("bankAddress"),$("bankPostalCode")].forEach(el=>el.addEventListener("input",geocode));
 
+  // Map (Leaflet + OpenStreetMap)
   let map,marker,timer;
   async function initMap(){
-    try{await window.BloodLagbeMaps.load();map=new google.maps.Map($("bankMap"),{center:{lat:23.685,lng:90.3563},zoom:7,mapTypeControl:false,streetViewControl:false});}
-    catch(e){$("bankMap").innerHTML=`<div class="map-loading-message">${e.message}</div>`;}
+    try{
+      $("bankMap").innerHTML="";
+      map=await window.BloodLagbeMaps.createMap($("bankMap"),{lat:23.685,lng:90.3563},7);
+    }catch(e){
+      $("bankMap").innerHTML=`<div class="map-loading-message">${e.message}</div>`;
+    }
   }
   async function geocode(){
-    if(!map||!$("bankAddress").value.trim())return; clearTimeout(timer);timer=setTimeout(async()=>{try{const parts=[$("bankAddress").value,upazila.value,district.value,division.value,$("bankPostalCode").value,"Bangladesh"].filter(Boolean);const r=await window.BloodLagbeMaps.geocode(parts.join(", "));const pos={lat:r.lat,lng:r.lng};map.setCenter(pos);map.setZoom(15);if(marker)marker.setMap(null);marker=new google.maps.Marker({map,position:pos,title:"Blood Bank address"});$("bankLatitude").value=r.lat;$("bankLongitude").value=r.lng;$("bankMapStatus").textContent=`Located: ${r.formatted}`;}catch{$("bankMapStatus").textContent="Address could not be located yet. Add more details.";}},450);
+    if(!map||!$("bankAddress").value.trim())return;
+    clearTimeout(timer);
+    timer=setTimeout(async()=>{
+      try{
+        const parts=[$("bankAddress").value,upazila.value,district.value,division.value,$("bankPostalCode").value,"Bangladesh"].filter(Boolean);
+        const r=await window.BloodLagbeMaps.geocode(parts.join(", "));
+        const pos={lat:r.lat,lng:r.lng};
+        map.setView([pos.lat,pos.lng],15);
+        if(marker)marker.remove();
+        marker=window.BloodLagbeMaps.dot(map,pos,"#e50914","Blood Bank address");
+        $("bankLatitude").value=r.lat;
+        $("bankLongitude").value=r.lng;
+        $("bankMapStatus").textContent=`Located: ${r.formatted}`;
+      }catch{
+        $("bankMapStatus").textContent="Address could not be located yet. Add more details.";
+      }
+    },450);
   }
   initMap();
 

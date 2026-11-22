@@ -34,40 +34,39 @@ document.addEventListener("DOMContentLoaded", () => {
   let map,userMarker=[],donorMarkers=[];
   let current={lat:22.3569,lng:91.7832};
 
-  function markerIcon(color="#e50914"){return {path:google.maps.SymbolPath.CIRCLE,scale:8,fillColor:color,fillOpacity:1,strokeColor:"#fff",strokeWeight:2};}
-  function drawUser(pos){
-    userMarker.forEach(m=>m.setMap(null)); userMarker=[];
-    userMarker.push(new google.maps.Marker({map,position:pos,title:"Your current location",icon:markerIcon("#111827"),zIndex:999}));
+    function drawUser(pos){
+    userMarker.forEach(m=>m.remove()); userMarker=[];
+    userMarker.push(window.BloodLagbeMaps.dot(map,pos,"#111827","Your current location"));
   }
   async function loadDonors(){
     if(!map)return;
     const group=filter?.value||"";
     if(!group){
-      donorMarkers.forEach(m=>m.setMap(null));donorMarkers=[];
+      donorMarkers.forEach(m=>m.remove());donorMarkers=[];
       return;
     }
     try{
       const url=`/api/public/donors?blood_group=${encodeURIComponent(group)}&latitude=${current.lat}&longitude=${current.lng}&radius_km=5`;
       const r=await fetch(url),d=await r.json();
-      donorMarkers.forEach(m=>m.setMap(null));donorMarkers=[];
+      donorMarkers.forEach(m=>m.remove());donorMarkers=[];
       if(!d.success)return;
+      const points=[[current.lat,current.lng]];
       d.donors.forEach(donor=>{
         if(!Number.isFinite(Number(donor.latitude)))return;
         const pos={lat:Number(donor.latitude),lng:Number(donor.longitude)};
-        const marker=new google.maps.Marker({map,position:pos,title:`${donor.username} • ${donor.blood_group}`,icon:markerIcon("#e50914")});
-        const info=new google.maps.InfoWindow({content:`<div style="padding:7px"><strong>${escapeHtml(donor.username)}</strong><br>${escapeHtml(donor.blood_group)} donor<br><small>Within 5 km</small></div>`});
-        marker.addListener("click",()=>info.open({map,anchor:marker}));donorMarkers.push(marker);
+        const marker=window.BloodLagbeMaps.dot(map,pos,"#e50914",`${donor.username} • ${donor.blood_group}`);
+        marker.bindPopup(`<strong>${escapeHtml(donor.username)}</strong><br>${escapeHtml(donor.blood_group)} donor<br><small>Within 5 km</small>`);
+        donorMarkers.push(marker);points.push([pos.lat,pos.lng]);
       });
-      if(d.donors.length){const bounds=new google.maps.LatLngBounds();bounds.extend(current);d.donors.forEach(x=>x.latitude&&bounds.extend({lat:Number(x.latitude),lng:Number(x.longitude)}));map.fitBounds(bounds,{top:80,right:50,bottom:50,left:50});}
+      if(points.length>1)map.fitBounds(points,{padding:[50,50]});
     }catch(e){console.warn("Nearby donor search unavailable",e);}
   }
   async function initMap(){
     if(!mapEl||!window.BloodLagbeMaps)return;
     try{
-      await window.BloodLagbeMaps.load();
-      map=new google.maps.Map(mapEl,{center:current,zoom:13,mapTypeControl:false,streetViewControl:false,fullscreenControl:true,gestureHandling:"greedy"});
+      map=await window.BloodLagbeMaps.createMap(mapEl,current,13);
       if(navigator.geolocation){
-        navigator.geolocation.getCurrentPosition(p=>{current={lat:p.coords.latitude,lng:p.coords.longitude};map.setCenter(current);drawUser(current);loadDonors();},()=>{drawUser(current);},{enableHighAccuracy:true,timeout:10000});
+        navigator.geolocation.getCurrentPosition(p=>{current={lat:p.coords.latitude,lng:p.coords.longitude};map.setView([current.lat,current.lng],13);drawUser(current);loadDonors();},()=>{drawUser(current);},{enableHighAccuracy:true,timeout:10000});
       }else drawUser(current);
     }catch(e){mapEl.innerHTML=`<div class="map-error">${escapeHtml(e.message)}</div>`;}
   }
